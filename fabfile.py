@@ -13,10 +13,11 @@ env.hosts = [prod_server]
 
 def config():
     log('COPIAR CÓDIGO GERADO E COLOCAR NAS CHAVES DE IMPLANTAÇÃO DO PROJETO')
-    run('ssh-keygen && cat ~/.ssh/id_rsa.pub')
-    resp = raw_input('Após copiar a chave e adicionar as chaves no repositório, clique ENTER para continuar!!!')
-    run('git clone %s project' % repositorio)
+    # run('ssh-keygen && cat ~/.ssh/id_rsa.pub')
+    # resp = raw_input('Após copiar a chave e adicionar as chaves no repositório, clique ENTER para continuar!!!')
+    # run('git clone %s project' % repositorio)
     with prefix('source {0}'.format(env.env_path)):
+        remote_pull()
         run('pip install -U distribute')
         run('pip install -r project/requirements.txt')
         run('python project/manage.py syncdb')
