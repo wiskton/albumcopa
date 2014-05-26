@@ -2,8 +2,8 @@
 from fabric.api import *
 
 username = 'album'
-host = '192.168.0.1'
-repositorio = 'git@bitbucket.org:willemarf/album.git'
+host = '162.243.129.158'
+repositorio = 'git@bitbucket.org:willemarf/albumcopa.git'
 
 # -----------------------------------------------------------------------
 prod_server = '%s@%s' % (username, host)
