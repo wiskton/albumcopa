@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Album da Copa</h1>
+
+<table border="1" class="figurinhas">
+    <tr>
+{% for f in figurinhas %}
+        <td {% if f.tenho %}class="tenho"{% endif %}>{{ f.nome }}</td>     
+    {% if forloop.counter|divisibleby:20 %}
+    </tr>
+    <tr>
+    {% endif %}   
+{% endfor %}    
+    </tr>
+</table>
+{% endblock %}
