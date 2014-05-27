@@ -6,7 +6,7 @@
 <table border="1" class="figurinhas">
     <tr>
 {% for f in figurinhas %}
-        <td {% if f.tenho %}class="tenho"{% endif %}>{{ f.nome }}</td>     
+        <td {% if f.tenho %}style="background-color: orange;"{% endif %}>{{ f.nome }}</td>     
     {% if forloop.counter|divisibleby:20 %}
     </tr>
     <tr>
