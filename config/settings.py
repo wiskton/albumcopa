@@ -22,7 +22,7 @@ DOMINIO = 'album.willemallan.com.br'
 SECRET_KEY = '&)cgwwaw1o%+527k1&#nu1o8c!8s8avc(p99cbo&kio$k%63*6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
