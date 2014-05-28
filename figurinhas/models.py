@@ -12,6 +12,7 @@ class Figurinha(models.Model):
     
 
     class Meta:
+        ordering = ['id', ]
         verbose_name = u'Figurinha'
         verbose_name_plural = u'Figurinhas'
         
