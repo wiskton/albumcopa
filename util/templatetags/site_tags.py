@@ -7,8 +7,10 @@ register = template.Library()
 @register.filter
 def igual(value, value2):
     if value and value2:
-        if value.upper() == value2:
-            return True
+        lista = value.split(' ')
+        for l in lista:
+            if value2 == l.upper():
+                return True
     return False
 
 @register.filter
