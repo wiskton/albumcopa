@@ -79,6 +79,10 @@ body {
   }
 }
 
+.figurinhas {
+  border-color: #FFF;
+} 
+
 .pd20 {
     padding:20px;
 }
