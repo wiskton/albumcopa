@@ -1,0 +1,11 @@
+{% load i18n %}
+<div class="btn-group">
+    <button data-toggle="dropdown" type="button" class="btn dropdown-toggle btn-default btn-sm">{% blocktrans with filter_title=title %}{{ filter_title }} {% endblocktrans %} <span class="caret"></span></button>
+    <ul class="dropdown-menu pull-right">
+        {% for choice in choices %}
+        <li{% if choice.selected %} class="active"{% endif %}>
+            <a href="{{ choice.query_string|iriencode }}">{{ choice.display }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>

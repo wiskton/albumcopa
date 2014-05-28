@@ -1,0 +1,28 @@
+{% load i18n %}
+<div class="actions">
+    {% for field in action_form %}
+    <div class="form-group">
+        {% if field.label %}<label class="control-label pull-left" style="padding: 5px 10px;">{{ field.label }}</label>{% endif %}
+        <div class="form-control pull-left">
+            {{ field }}
+        </div>
+    </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-info btn-sm pull-left" title="{% trans "Run the selected action" %}" name="index" value="{{ action_index|default:0 }}" style="margin: 2px 5px">{% trans "Go" %}</button>
+
+    {% if actions_selection_counter %}
+    <div class="pull-left" style="padding: 7px 15px;">
+        <script type="text/javascript">var _actions_icnt="{{ cl.result_list|length|default:"0" }}";</script>
+        <span class="action-counter">{{ selection_note }}</span>
+        {% if cl.result_count != cl.result_list|length %}
+        <span class="all" style="display:none;">{{ selection_note_all }}</span>
+        <span class="question">
+            <a class="btn btn-primary btn-xs" href="javascript:;" title="{% trans "Click here to select the objects across all pages" %}">{% blocktrans with cl.result_count as total_count %}Select all {{ total_count }} {{ module_name }}{% endblocktrans %}</a>
+        </span>
+        <span class="clear" style="display:none;"><a class="btn btn-default btn-xs" href="javascript:;">{% trans "Clear selection" %}</a></span>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+<div class="clearfix"></div>

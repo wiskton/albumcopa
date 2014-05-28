@@ -1,0 +1,88 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            {% if app_list %}
+                            {% for app in app_list %}
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    <a href="{{ app.app_url }}" class="section" title="{% blocktrans with name=app.name %}Models in the {{ name }} application{% endblocktrans %}">
+                                        {% blocktrans with name=app.name %}{{ name }}{% endblocktrans %}
+                                    </a>
+                                    <span class="tools pull-right">
+                                        <a href="javascript:;" class="fa fa-chevron-down"></a>
+                                        <a href="javascript:;" class="fa fa-cog"></a>
+                                        <a href="javascript:;" class="fa fa-times"></a>
+                                    </span>
+                                </header>
+                                <div class="panel-body pz">
+                                    <table class="table table-bordered mz align-m bz">
+                                        {% for model in app.models %}
+                                        <tr class="model-{{ model.object_name|lower }}">
+                                            <td style="border-left:0;" class="{% if forloop.first %}btz{% elif forloop.last %}bbz{% endif %}">
+                                                {% if model.admin_url %}<a href="{{ model.admin_url }}">{{ model.name }}</a>{% else %}{{ model.name }}{% endif %}
+                                            </td>
+                                            <td style="width:175px; border-right:0;"  class="{% if forloop.first %}btz{% elif forloop.last %}bbz{% endif %}">
+                                                {% if model.add_url %}<a href="{{ model.add_url }}" class="btn btn-success btn-sm"><i class="icon-plus icon-white"></i> {% trans 'Add' %}</a>{% endif %}
+                                                {% if model.admin_url %}<a href="{{ model.admin_url }}" class="btn btn-primary btn-sm"><i class="icon-pencil icon-white"></i> {% trans 'Change' %}</a>{% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            </section>
+                            {% endfor %}
+                            {% else %}
+                            <p>{% trans "You don't have permission to edit anything." %}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <section class="panel profile-nav">
+
+                                <header class="panel-heading">
+                                    {% trans 'My Actions' %}
+                                    <span class="tools pull-right">
+                                        <a href="javascript:;" class="fa fa-chevron-down"></a>
+                                        <a href="javascript:;" class="fa fa-cog"></a>
+                                        <a href="javascript:;" class="fa fa-times"></a>
+                                    </span>
+                                </header>
+
+                                <div class="panel-body pz">
+                                    {% load log %}
+                                    {% get_admin_log 6 as admin_log for_user user %}
+                                    {% if not admin_log %}
+                                    <p class="text-center"><strong>{% trans 'None available' %}</strong></p>
+                                    {% else %}
+                                    <ul class="nav nav-pills nav-stacked">
+                                        {% for entry in admin_log %}
+                                        <li>
+                                            <a {% if not entry.is_deletion and entry.get_admin_url %}href="{{ entry.get_admin_url }}"{% endif %}>
+                                                {% if entry.is_addition %}<i class="icon-plus"></i>{% endif %}
+                                                {% if entry.is_change %}<i class="icon-pencil"></i>{% endif %}
+                                                {% if entry.is_deletion %}<i class="icon-trash"></i>{% endif %}
+                                                <strong>{{ entry.object_repr|safe }}</strong>
+                                                <span>{% if entry.content_type %}{% filter capfirst %}{% trans entry.content_type.name %}{% endfilter %}{% else %}{% trans 'Unknown content' %}{% endif %}</span>
+                                            </a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                </div>
+                            </section>
+
+                        </div>
+                    </div>
+{% endblock %}
+

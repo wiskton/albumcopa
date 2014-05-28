@@ -8,8 +8,8 @@ TEMPLATE_DEBUG = DEBUG
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'copa',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'sqlite3.db',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': '127.0.0.1',
@@ -17,15 +17,11 @@ DATABASES = {
     }
 }
 
-
-
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
-)
-
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'config/static'),
 )
 
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
+
+# TINYMCE_JS_URL = "%stiny_mce/tiny_mce_src.js" % STATIC_URL

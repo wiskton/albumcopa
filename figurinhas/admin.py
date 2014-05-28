@@ -9,6 +9,7 @@ class FigurinhaAdmin(admin.ModelAdmin):
     list_filter = ['tenho', ]
     list_editable = ['tenho', 'quantidade']
     read_only = ['usuario', 'data']
+    exclude = ['usuario', ]
 
 
     def save_model(self, request, instance, form, change):

@@ -1,0 +1,12 @@
+{% load i18n admin_urls %}
+<div class="row">
+    <div class="col-lg-12 m-bot20">
+		{% if show_delete_link %}<a href="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}" class="btn btn-danger"><i class="icon-remove icon-white"></i> {% trans "Delete" %}</a>{% endif %}
+		<div class="pull-right">
+			{% if show_save %}<input type="submit" value="{% trans 'Save' %}" name="_save" {{ onclick_attrib }} class="btn btn-success" />{% endif %}
+			{% if show_save_as_new %}<input type="submit" value="{% trans 'Save as new' %}" name="_saveasnew" {{ onclick_attrib }} class="btn" />{%endif%}
+			{% if show_save_and_continue %}<input type="submit" value="{% trans 'Save and continue editing' %}" name="_continue" {{ onclick_attrib }} class="btn btn-info" />{% endif %}
+			{% if show_save_and_add_another %}<input type="submit" value="{% trans 'Save and add another' %}" name="_addanother" {{ onclick_attrib }} class="btn btn-info" />{% endif %}
+		</div>
+	</div>
+</div>

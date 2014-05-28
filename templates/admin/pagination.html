@@ -1,0 +1,13 @@
+{% load admin_list %}
+{% load i18n %}
+    <ul class="pagination">
+        <li><span class="help-inline">{{ cl.result_count }} {% ifequal cl.result_count 1 %}{{ cl.opts.verbose_name }}{% else %}{{ cl.opts.verbose_name_plural }}{% endifequal %}</span></li>
+        {% if pagination_required %}
+        {% for i in page_range %}
+        <li>{% paginator_number cl i %}</li>
+        {% endfor %}
+        {% endif %}
+        <li>{% if show_all_url %}<a href="{{ show_all_url }}" class="showall">{% trans 'Show all' %}</a>{% endif %}</li>
+    </ul>
+    {% if cl.formset and cl.result_count %}<input type="submit" name="_save" class="btn btn-success" value="{% trans 'Save' %}"/>{% endif %}
+    <div class="clear"></div>

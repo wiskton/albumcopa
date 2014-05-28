@@ -1,0 +1,188 @@
+{% load admin_static %}{% load firstof from future %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        {% comment %}
+        <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}" />
+        {% endcomment %}
+
+        <link rel="stylesheet" type="text/css" href="{% static "admin/css/bootstrap.min.css" %}" />
+        <link rel="stylesheet" type="text/css" href="{% static "admin/css/bootstrap-reset.css" %}" />
+        <link rel="stylesheet" type="text/css" href="{% static "admin/css/bootstrap-reset.css" %}" />
+        <link rel="stylesheet" type="text/css" href="{% static "admin/font-awesome/css/font-awesome.css" %}" />
+
+        <link rel="stylesheet" type="text/css" href="{% static "admin/css/style.css" %}" />
+        <link rel="stylesheet" type="text/css" href="{% static "admin/css/style-responsive.css" %}" />
+
+        {% block extrastyle %}{% endblock %}
+
+        <!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{% static "admin/css/ie.css" %}{% endblock %}" /><![endif]-->
+        {% comment %}
+        {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}" />{% endif %}
+        {% endcomment %}
+
+        <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
+
+        <script src="{% static "admin/js/jquery.min.js" %}"></script>
+        <script src="{% static "admin/js/jquery.ui.custom.js" %}"></script>
+        <script src="{% static "admin/js/bootstrap.min.js" %}"></script>
+
+        {% block extrahead %}{% endblock %}
+
+        <script src="{% static "admin/js/jquery/jquery.dcjqaccordion.js" %}"></script>
+        <script src="{% static "admin/js/jquery/jquery.scrollTo.min.js" %}"></script>
+        <script src="{% static "admin/js/jquery/jquery.slimscroll.js" %}"></script>
+        <script src="{% static "admin/js/jquery/jquery.nicescroll.js" %}"></script>
+
+        <script src="{% static "admin/js/class/Class.js" %}"></script>
+        <script src="{% static "admin/js/class/BaseView.js" %}"></script>
+        <script src="{% static "admin/js/class/Others.js" %}"></script>
+        <script src="{% static "admin/js/class/Nav.js" %}"></script>
+
+        {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
+    </head>
+
+    {% load i18n %}
+
+    <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}" id="{% block bodyid %}internal{% endblock %}">
+        <section id="container">
+            {% if not is_popup %}
+            {% block header %}
+            <header class="header fixed-top clearfix">
+                <div class="brand">
+                    <a href="{% url 'admin:index' %}" class="logo"><img src="{% static "admin/img/logo.png" %}" alt="Willem" title="Willem" /></a>
+                    <div class="sidebar-toggle-box">
+                        <div class="fa fa-bars"></div>
+                    </div>
+                </div>
+
+                                
+                {% if user.is_active and user.is_staff %}
+                <div class="top-nav clearfix">
+                    <ul class="nav pull-right top-menu">
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <img alt="" src="" width="35" height="35">
+                                <span class="username">{% firstof user.get_short_name user.get_username %}</span>
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu extended logout">
+                                {% block userlinks %}
+                                {% if user.has_usable_password %}<li><a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a></li>{% endif %}
+                                {% if user.has_usable_password %}<li><a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a></li>{% endif %}
+                                <li><a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a></li>
+                                {% endblock %}
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="toggle-right-box">
+                                <div class="fa fa-bars"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                {% endif %}
+                {% block nav-global %}{% endblock %}
+
+            </header>
+            <!--header end-->
+            {% endblock %}
+
+            {% block sidebar %}
+            <!--sidebar start-->
+            <aside>
+                <div id="sidebar" class="nav-collapse">
+                    <!-- sidebar menu start-->
+                    <div class="leftside-navigation">
+
+                        <ul class="sidebar-menu" id="nav-accordion">
+                            <li><a href="{% url 'admin:index' %}"><i class="icon icon-home"></i> <span>{% trans 'Painel' %}</span></a></li>
+
+                            {% if app_list %}
+                            {% for app in app_list %}
+                            <li class="sub-menu">
+                                <a href="{{ app.app_url }}"><i class="icon icon-user"></i> <span>{% blocktrans with name=app.name %}{{ name }}{% endblocktrans %}</span></a>
+                                <ul class="sub">
+                                    {% for model in app.models %}
+                                    <li><a href="{{ model.admin_url }}">{{ model.name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                            {% endfor %}
+                            {% endif %}
+
+                        </ul>
+
+                    </div>
+                    <!-- sidebar menu end-->
+
+                </div>
+            </aside>
+            {% endblock %}
+
+            {% endif %}<!-- not is_popup -->
+
+
+            <section id="main-content" class="{% block coltype %}colM{% endblock %}">
+                <section class="wrapper">
+                    
+                    {% block breadcrumbs %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="breadcrumb">
+                                <li><a href="{% url 'admin:index' %}"><i class="fa fa-home"></i> {% trans 'Home' %}</a></li>
+                                {% if title %}<li class="active">{{ title }}</li>{% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    {% endblock %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="content-header">
+                                {% block pretitle %}{% endblock %}
+                                {% block content_title %}
+                                {% if title %}<h1>{{ title }}</h1>{% endif %}
+                                {% endblock %}
+
+                                <div class="btn-group" style="width: auto;">
+                                    {% block object-tools %}{% endblock %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% block messages %}
+                            {% if messages %}
+                            {% for message in messages %}
+                            <div class="alert{% if message.tags %} alert-{{ message.tags }} {% endif %} fade in">
+                                <button data-dismiss="alert" class="close close-sm" type="button">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                                {{ message|capfirst }}
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                            {% endblock messages %}
+                        </div>
+                    </div>
+
+                    {% block content %}
+                    {{ content }}
+                    {% endblock %}
+
+                </section><!-- wrapper -->
+            </section><!-- end main-content -->
+
+        </section><!-- end container -->
+
+        {% block footer %}<div id="footer"></div>{% endblock %}
+
+
+
+
+    </body>
+</html>
