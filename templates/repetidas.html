@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load site_tags %}
 
 {% block title %}Repetidas - {% endblock %}
 
@@ -13,10 +14,19 @@
     <p>Repetidas <span class="label label-warning">{{ repetidas }}</span></p>
   </div>
 
+  <div class="row pd20">
+    <form class="navbar-form navbar-left" action="" method="GET">
+      <div class="form-group">
+        <input type="text" name="q" class="form-control" placeholder="Digite uma figurinha">
+      </div>  
+      <input type="submit" class="btn btn-warning" value="Pesquisar">
+    </form>
+  </div>
+
   <table border="1" class="figurinhas" align="center">
       <tr>
   {% for f in figurinhas %}
-          <td {% if f.tenho %}style="background-color: orange;"{% endif %}><a title="Quantidade de repetidas: {{ f.quantidade }}">{{ f.nome }}</a></td>     
+          <td class="figurinha{% if f.tenho %} tenho{% endif %}{% if request.GET.q|igual:f.nome %} busca{% endif %}">{{ f.nome }}</td>     
       {% if forloop.counter|divisibleby:20 %}
       </tr>
       <tr>

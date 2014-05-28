@@ -82,3 +82,17 @@ body {
 .pd20 {
     padding:20px;
 }
+
+.figurinha {
+  text-align: center;
+}
+
+.tenho {
+  background-color: green;
+  color: white;
+}
+
+.busca{
+  background-color: orange;
+  color: white;
+}

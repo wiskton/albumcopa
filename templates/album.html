@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load site_tags %}
 
 {% block title %}Album - {% endblock %}
 
@@ -16,7 +17,16 @@
     <p>Repetidas <span class="label label-warning">{{ repetidas }}</span></p>
   </div>
 
-  <div class="pd20">
+  <div class="row pd20">
+    <form class="navbar-form navbar-left" action="" method="GET">
+      <div class="form-group">
+        <input type="text" name="q" class="form-control" placeholder="Digite uma figurinha">
+      </div>  
+      <input type="submit" class="btn btn-warning" value="Pesquisar">
+    </form>
+  </div>
+
+  <div class="row pd20">
     <div class="progress progress-striped">
       <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ porcento }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ porcento }}%;">
       {{ porcento }}% do album
@@ -27,7 +37,7 @@
   <table border="1" class="figurinhas" align="center">
       <tr>
   {% for f in figurinhas %}
-          <td {% if f.tenho %}style="background-color: orange;"{% endif %}>{{ f.nome }}</td>     
+          <td class="figurinha{% if f.tenho %} tenho{% endif %}{% if request.GET.q|igual:f.nome %} busca{% endif %}">{{ f.nome }}</td>     
       {% if forloop.counter|divisibleby:20 %}
       </tr>
       <tr>

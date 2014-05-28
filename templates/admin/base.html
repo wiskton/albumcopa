@@ -1,4 +1,6 @@
-{% load admin_static %}{% load firstof from future %}
+{% load admin_static %}
+{% load firstof from future %}
+{% load site_tags %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
     <head>
@@ -26,7 +28,7 @@
 
         <script src="{% static "admin/js/jquery.min.js" %}"></script>
         <script src="{% static "admin/js/jquery.ui.custom.js" %}"></script>
-        <script src="{% static "admin/js/bootstrap.min.js" %}"></script>
+        <script src="{% static "admin/js/bootstrap.js" %}"></script>
 
         {% block extrahead %}{% endblock %}
 
@@ -63,13 +65,13 @@
                     <ul class="nav pull-right top-menu">
                         <li class="dropdown">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <img alt="" src="" width="35" height="35">
+                                {# {% get_photo_gravatar email=user.email size=29 %} #}
                                 <span class="username">{% firstof user.get_short_name user.get_username %}</span>
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu extended logout">
                                 {% block userlinks %}
-                                {% if user.has_usable_password %}<li><a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a></li>{% endif %}
+                                {# {% if user.has_usable_password %}<li><a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a></li>{% endif %} #}
                                 {% if user.has_usable_password %}<li><a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a></li>{% endif %}
                                 <li><a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a></li>
                                 {% endblock %}
