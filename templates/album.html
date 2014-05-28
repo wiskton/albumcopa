@@ -4,8 +4,27 @@
 
 {% block content %}
 
+<div class="page-header">
+  <h1>Album <small>relação de figurinhas que faltam</small></h1>
+</div>
+
 <div class="row">
-  <table border="1" class="figurinhas">
+
+  <div class="pd20">
+    <p>Tenho <span class="label label-success">{{ tenho }}/{{ total }}</span></p>
+    <p>Faltam <span class="label label-danger">{{ faltam }}/{{ total }}</span></p>
+    <p>Repetidas <span class="label label-warning">{{ repetidas }}</span></p>
+  </div>
+
+  <div class="pd20">
+    <div class="progress progress-striped">
+      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ porcento }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ porcento }}%;">
+      {{ porcento }}% do album
+      </div>
+    </div>
+  </div>
+
+  <table border="1" class="figurinhas" align="center">
       <tr>
   {% for f in figurinhas %}
           <td {% if f.tenho %}style="background-color: orange;"{% endif %}>{{ f.nome }}</td>     
@@ -16,6 +35,7 @@
   {% endfor %}    
       </tr>
   </table>
+
 </div>
 
 {% endblock %}

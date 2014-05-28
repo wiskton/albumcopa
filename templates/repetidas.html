@@ -4,11 +4,19 @@
 
 {% block content %}
 
+<div class="page-header">
+  <h1>Repetidas <small>figurinhas para troca</small></h1>
+</div>
+
 <div class="row">
-  <table border="1" class="figurinhas">
+  <div class="pd20">
+    <p>Repetidas <span class="label label-warning">{{ repetidas }}</span></p>
+  </div>
+
+  <table border="1" class="figurinhas" align="center">
       <tr>
   {% for f in figurinhas %}
-          <td {% if f.tenho %}style="background-color: orange;"{% endif %}>{{ f.nome }}</td>     
+          <td {% if f.tenho %}style="background-color: orange;"{% endif %}><a title="Quantidade de repetidas: {{ f.quantidade }}">{{ f.nome }}</a></td>     
       {% if forloop.counter|divisibleby:20 %}
       </tr>
       <tr>
