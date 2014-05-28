@@ -14,20 +14,36 @@ def album(request):
     faltam = Figurinha.objects.filter(tenho=False).count()
     total = figurinhas.count()
     porcento = tenho * 100 / total
-    rp = Figurinha.objects.filter(quantidade__gt=0)
+    rp = figurinhas.filter(quantidade__gt=0)
     repetidas = 0
     for r in rp:
         repetidas += r.quantidade
-    
+
+    if request.GET.get('q'):
+        figs = request.GET.get('q').upper().split(' ')
+        encontrados = figurinhas.filter(nome__in=figs, tenho=True).count()
+
     return render_to_response('album.html', locals(), context_instance=RequestContext(request))
 
+def faltam(request):
+    figurinhas = Figurinha.objects.filter(tenho=False)
+    faltam = figurinhas.count()
+
+    if request.GET.get('q'):
+        figs = request.GET.get('q').upper().split(' ')
+        encontrados = figurinhas.filter(nome__in=figs).count()
+    
+    return render_to_response('faltam.html', locals(), context_instance=RequestContext(request))
+
 def repetidas(request):
-    rp = Figurinha.objects.filter(quantidade__gt=0)
+    figurinhas = Figurinha.objects.filter(tenho=True)
     repetidas = 0
-    for r in rp:
+    for r in figurinhas:
         repetidas += r.quantidade
 
-    figurinhas = Figurinha.objects.filter(quantidade__gt=0)
+    if request.GET.get('q'):
+        figs = request.GET.get('q').upper().split(' ')
+        encontrados = figurinhas.filter(nome__in=figs).count()
     
     return render_to_response('repetidas.html', locals(), context_instance=RequestContext(request))
         

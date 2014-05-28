@@ -11,6 +11,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'figurinhas.views.home', name='home'),
+    url(r'^faltam/$', 'figurinhas.views.faltam', name='faltam'),
     url(r'^album/$', 'figurinhas.views.album', name='album'),
     url(r'^repetidas/$', 'figurinhas.views.repetidas', name='repetidas'),
     # url(r'^blog/', include('blog.urls')),
