@@ -23,10 +23,12 @@
         <input type="text" name="q" class="form-control" placeholder="Digite uma figurinha" value="{{ request.GET.q }}">
       </div>  
       <input type="submit" class="btn btn-warning" value="Pesquisar">
-      {% if encontrados %}
-      <p>Resultados da busca {{ encontrados }} figurinha(s) do album.</p>
-      {% else %}
-      <p>Nenhum figurinha encontrada.</p>
+      {% if request.GET %}
+        {% if encontrados and request.GET.q %}
+        <p>Resultados da busca {{ encontrados }} figurinha(s) do album.</p>
+        {% else %}
+        <p>Nenhum figurinha encontrada.</p>
+        {% endif %}
       {% endif %}
     </form>
   </div>

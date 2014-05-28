@@ -26,8 +26,13 @@ def album(request):
     return render_to_response('album.html', locals(), context_instance=RequestContext(request))
 
 def faltam(request):
-    figurinhas = Figurinha.objects.filter(tenho=False)
+    figurinhas = Figurinha.objects.all()
+    total = figurinhas.count()
+
+    figurinhas = figurinhas.filter(tenho=False)
     faltam = figurinhas.count()
+    
+    porcento = faltam * 100 / total
 
     if request.GET.get('q'):
         figs = request.GET.get('q').upper().split(' ')
