@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Album - {% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <table border="1" class="figurinhas">
+      <tr>
+  {% for f in figurinhas %}
+          <td {% if f.tenho %}style="background-color: orange;"{% endif %}>{{ f.nome }}</td>     
+      {% if forloop.counter|divisibleby:20 %}
+      </tr>
+      <tr>
+      {% endif %}   
+  {% endfor %}    
+      </tr>
+  </table>
+</div>
+
+{% endblock %}
