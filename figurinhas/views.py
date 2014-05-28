@@ -36,7 +36,7 @@ def faltam(request):
     return render_to_response('faltam.html', locals(), context_instance=RequestContext(request))
 
 def repetidas(request):
-    figurinhas = Figurinha.objects.filter(tenho=True)
+    figurinhas = Figurinha.objects.filter(quantidade__gt=0)
     repetidas = 0
     for r in figurinhas:
         repetidas += r.quantidade
