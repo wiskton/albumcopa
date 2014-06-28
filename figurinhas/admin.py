@@ -7,7 +7,7 @@ class FigurinhaAdmin(admin.ModelAdmin):
     list_display = ('nome', 'quantidade', 'tenho', 'usuario', 'data')
     search_fields = ('nome', )
     list_filter = ['tenho', ]
-    list_editable = ['tenho', 'quantidade']
+    list_editable = ['tenho', 'quantidade', 'brilhante']
     read_only = ['usuario', 'data']
     exclude = ['usuario', ]
 
