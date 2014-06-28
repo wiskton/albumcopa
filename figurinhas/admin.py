@@ -4,7 +4,7 @@ from models import *
 
 
 class FigurinhaAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'quantidade', 'tenho', 'usuario', 'data')
+    list_display = ('nome', 'quantidade', 'brilhante', 'tenho', 'usuario', 'data')
     search_fields = ('nome', )
     list_filter = ['tenho', 'brilhante']
     list_editable = ['tenho', 'quantidade', 'brilhante']
