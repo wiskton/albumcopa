@@ -44,7 +44,7 @@
   <table border="1" class="figurinhas" align="center">
       <tr>
   {% for f in figurinhas %}
-          <td class="figurinha{% if f.tenho %} tenho{% endif %}{% if request.GET.q|igual:f.nome %} busca{% endif %}">{{ f.nome }}</td>     
+          <td class="figurinha{% if f.tenho %} tenho{% endif %}{% if f.brilhante %} brilhante{% endif %}{% if request.GET.q|igual:f.nome %} busca{% endif %}">{{ f.nome }}</td>     
       {% if forloop.counter|divisibleby:20 %}
       </tr>
       <tr>
